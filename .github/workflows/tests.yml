@@ -27,10 +27,5 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm test
-      #   - name: Upload coverage report
-      #     uses: actions/upload-artifact@v4
-      #     with:
-      #       name: coverage
-      #       path: ./reports/coverage
       - name: Code Coverage
         uses: ArtiomTr/jest-coverage-report-action@v2
