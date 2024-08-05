@@ -1,0 +1,68 @@
+name: Publish NPM Package
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+      - develop
+
+env:
+  HUSKY: 0
+
+jobs:
+  release-dry-run:
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm test
+      - name: Publish to npm
+        run: npm publish --dry-run
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          dry_run: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # build-and-release:
+  # if: github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   environment: production
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Use Node.js 18.x
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 18
+  #         cache: npm
+  #     - run: npm ci
+  #     - run: npm run lint
+  #     - run: npm run build
+  #     - run: npm test
+  #     - name: Publish to npm
+  #       run: npm publish --dry-run
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  #     - name: Release
+  #       run: npx semantic-release
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
