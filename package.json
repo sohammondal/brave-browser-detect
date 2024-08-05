@@ -1,6 +1,6 @@
 {
   "name": "brave-browser-detect",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Utility to detect Brave browser",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
