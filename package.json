@@ -2,7 +2,11 @@
   "name": "brave-browser-detect",
   "version": "0.0.1",
   "description": "Utility to detect Brave browser",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest",
     "build": "tsc",
@@ -11,8 +15,16 @@
     "prepare": "node .husky/install.mjs"
   },
   "keywords": [],
-  "author": "",
+  "author": "Soham Mondal",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sohammondal/brave-browser-detect.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sohammondal/brave-browser-detect/issues"
+  },
+  "homepage": "https://github.com/sohammondal/brave-browser-detect",
   "devDependencies": {
     "@eslint/js": "^9.8.0",
     "@semantic-release/changelog": "^6.0.3",
